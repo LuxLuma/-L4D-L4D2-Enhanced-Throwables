@@ -67,18 +67,18 @@ public OnPluginStart()
 	else
 		SetFailState("This plugin only runs on Left 4 Dead and Left 4 Dead 2!");
 	
-	CreateConVar("EnhanceThrowables_Version", PLUGIN_VERSION, "Enhance Handheld Throwables version", FCVAR_PLUGIN|FCVAR_SPONLY|FCVAR_DONTRECORD|FCVAR_NOTIFY);
+	CreateConVar("EnhanceThrowables_Version", PLUGIN_VERSION, "Enhance Handheld Throwables version", FCVAR_SPONLY|FCVAR_DONTRECORD|FCVAR_NOTIFY);
 	
-	hCvar_HandheldLightPipBomb = CreateConVar("l4d_handheld_light_pipe_bomb", "1", "Enables/Disables handheld pipebomb light.", FCVAR_PLUGIN, true, 0.0, true, 1.0);
-	hCvar_HandheldLightMolotov = CreateConVar("l4d_handheld_light_Molotov", "1", "Enables/Disables Molotov light.", FCVAR_PLUGIN, true, 0.0, true, 1.0);
-	hCvar_HandheldThrowLightEnabled = CreateConVar("l4d_handheld_throw_light_enable", "1", "Enables/Disables handheld light after throwing.", FCVAR_PLUGIN, true, 0.0, true, 1.0);
+	hCvar_HandheldLightPipBomb = CreateConVar("l4d_handheld_light_pipe_bomb", "1", "Enables/Disables handheld pipebomb light.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
+	hCvar_HandheldLightMolotov = CreateConVar("l4d_handheld_light_Molotov", "1", "Enables/Disables Molotov light.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
+	hCvar_HandheldThrowLightEnabled = CreateConVar("l4d_handheld_throw_light_enable", "1", "Enables/Disables handheld light after throwing.", FCVAR_NOTIFY, true, 0.0, true, 1.0);
 	
-	hCvar_PipebombFuseColor = CreateConVar("l4d_handheld_light_pipebomb_fuse_colour", "215 215 1", "Pipebomb fure light color (0-255 0-255 0-255)", FCVAR_PLUGIN);
-	hCvar_PipebombFlashColor = CreateConVar("l4d_handheld_light_pipebomb_flash_colour", "200 1 1", "Pipebomb flash light color (0-255 0-255 0-255)", FCVAR_PLUGIN);
-	hCvar_PipebombLightDistance = CreateConVar("l4d_handheld_light_pipebomb_light_distance", "255.0", "Pipebomb Max light distance (0 = disabled)", FCVAR_PLUGIN, true, 0.1, true, 9999.0);
+	hCvar_PipebombFuseColor = CreateConVar("l4d_handheld_light_pipebomb_fuse_colour", "215 215 1", "Pipebomb fure light color (0-255 0-255 0-255)", FCVAR_NOTIFY);
+	hCvar_PipebombFlashColor = CreateConVar("l4d_handheld_light_pipebomb_flash_colour", "200 1 1", "Pipebomb flash light color (0-255 0-255 0-255)", FCVAR_NOTIFY);
+	hCvar_PipebombLightDistance = CreateConVar("l4d_handheld_light_pipebomb_light_distance", "255.0", "Pipebomb Max light distance (0 = disabled)", FCVAR_NOTIFY, true, 0.1, true, 9999.0);
 	
-	hCvar_MolotovColor = CreateConVar("l4d_handheld_light_molotov_colour", "255 50 0", "Molotovs light color (0-255 0-255 0-255)", FCVAR_PLUGIN);
-	hCvar_MolotovLightDistance = CreateConVar("l4d_handheld_light_molotov_light_distance", "200.0", "Molotovs light distance (0 = disabled)", FCVAR_PLUGIN, true, 0.1, true, 9999.0);
+	hCvar_MolotovColor = CreateConVar("l4d_handheld_light_molotov_colour", "255 50 0", "Molotovs light color (0-255 0-255 0-255)", FCVAR_NOTIFY);
+	hCvar_MolotovLightDistance = CreateConVar("l4d_handheld_light_molotov_light_distance", "200.0", "Molotovs light distance (0 = disabled)", FCVAR_NOTIFY, true, 0.1, true, 9999.0);
 	
 	HookConVarChange(hCvar_HandheldLightPipBomb, eConvarChanged);
 	HookConVarChange(hCvar_HandheldLightMolotov, eConvarChanged);
