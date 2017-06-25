@@ -16,7 +16,7 @@
 public Plugin:myinfo =
 {
 	name = "EnhancedThrowables",
-	author = "Timocop, ludastar (Armonic)",
+	author = "Timocop, Lux",
 	description = "Add Dynamic Lights to handheld throwables",
 	version = PLUGIN_VERSION,
 	url = "https://forums.alliedmods.net/showthread.php?p=2413605"
