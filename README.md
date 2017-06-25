@@ -1,1 +1,1 @@
-https://forums.alliedmods.net/showthread.php?p=2413605
+# [L4D/L4D2]Enhanced Throwables
