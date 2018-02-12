@@ -105,7 +105,7 @@ public Action:HandheldSoundHook(iClients[64], &iNumClients, String:sSampleFile[P
 	if(!g_bHandheldThrowLightEnabled)
 		return Plugin_Continue;
 	
-	if(iEntity < 0 || iEntity < 2048)
+	if(iEntity < 0 || iEntity > 2048)
 		return Plugin_Continue;
 	
 	static iAlreadyThrownEntityRef[2048+1] = {INVALID_ENT_REFERENCE, ...};
