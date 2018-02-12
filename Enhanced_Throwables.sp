@@ -11,7 +11,7 @@
 #define PIPEBOMB_SOUND "weapons/hegrenade/beep.wav" //"PipeBomb.TimerBeep"
 #define MOLOTOV_SOUND "weapons/molotov/fire_ignite_2.wav" //"Molotov.Throw"
 
-#define ENABLE_AUTOEXEC false
+#define ENABLE_AUTOEXEC true
 
 public Plugin:myinfo =
 {
