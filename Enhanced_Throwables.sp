@@ -2,7 +2,7 @@
 
 #define MAX_FRAMECHECK 10
 
-#define PLUGIN_VERSION "1.2"
+#define PLUGIN_VERSION "1.2.1"
 
 #include <sourcemod>
 #include <sdktools>
@@ -103,6 +103,9 @@ public OnPluginStart()
 public Action:HandheldSoundHook(iClients[64], &iNumClients, String:sSampleFile[PLATFORM_MAX_PATH], &iEntity, &iChannel, &Float:fVolume, &fLevel, &iPitch, &iFlags)
 {
 	if(!g_bHandheldThrowLightEnabled)
+		return Plugin_Continue;
+	
+	if(iEntity < 0 || iEntity < 2048)
 		return Plugin_Continue;
 	
 	static iAlreadyThrownEntityRef[2048+1] = {INVALID_ENT_REFERENCE, ...};
