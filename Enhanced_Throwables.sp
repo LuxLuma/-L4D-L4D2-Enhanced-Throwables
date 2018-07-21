@@ -2,7 +2,7 @@
 
 #define MAX_FRAMECHECK 10
 
-#define PLUGIN_VERSION "1.2.1"
+#define PLUGIN_VERSION "1.3"
 
 #include <sourcemod>
 #include <sdktools>
@@ -134,9 +134,9 @@ public Action:HandheldSoundHook(iClients[64], &iNumClients, String:sSampleFile[P
 			if(iLight == -1 || !IsValidEntity(iLight))
 				return Plugin_Continue;
 			
-			decl Float:fPos[3];
-			EntityGetPosition(iEntity, fPos);
-			TeleportEntity(iEntity, fPos, NULL_VECTOR, NULL_VECTOR);
+			//decl Float:fPos[3];
+			//EntityGetPosition(iEntity, fPos);
+			//TeleportEntity(iEntity, fPos, NULL_VECTOR, NULL_VECTOR);
 			EntitySetParent(iLight, iEntity);
 		}
 		case 'm':
@@ -148,9 +148,9 @@ public Action:HandheldSoundHook(iClients[64], &iNumClients, String:sSampleFile[P
 			if(iLight == -1 || !IsValidEntity(iLight))
 				return Plugin_Continue;
 			
-			decl Float:fPos[3];
-			EntityGetPosition(iEntity, fPos);
-			TeleportEntity(iEntity, fPos, NULL_VECTOR, NULL_VECTOR);
+			//decl Float:fPos[3];
+			//EntityGetPosition(iEntity, fPos);
+			//TeleportEntity(iEntity, fPos, NULL_VECTOR, NULL_VECTOR);
 			EntitySetParent(iLight, iEntity);
 		}
 	}
@@ -185,7 +185,6 @@ public OnGameFrame()
 			if(IsValidEntRef(iClientLightRef[i]))
 			{
 				AcceptEntityInput(iClientLightRef[i], "Kill");
-				RemoveEdict(iClientLightRef[i]);
 				iClientLightRef[i] = INVALID_ENT_REFERENCE;
 			}
 		}
@@ -202,7 +201,6 @@ public OnGameFrame()
 				if(IsValidEntRef(iClientLightRef[i]))
 				{
 					AcceptEntityInput(iClientLightRef[i], "Kill");
-					RemoveEdict(iClientLightRef[i]);
 					iClientLightRef[i] = INVALID_ENT_REFERENCE;
 				}
 			}
@@ -248,7 +246,34 @@ static CreateLight(iEntity, EnumHandheld:iHandheld=EnumHandheld_None)
 	EntityGetPosition(iEntity, fPos);
 	
 	TeleportEntity(iLight, fPos, NULL_VECTOR, NULL_VECTOR);
-	EntitySetParentAttachment(iLight, iEntity, "survivor_light");
+	
+	if(iEntity < MaxClients+1)// should block the error on olderversion on error parent attachment
+	{
+		decl String:sModel[31];
+		GetEntPropString(iEntity, Prop_Data, "m_ModelName", sModel, sizeof(sModel));
+		
+		switch(sModel[29])
+		{
+			case 'b', 'd', 'c', 'h', 'w' ://nick, rochelle, coach, ellis, adawong
+			{
+				EntitySetParentAttachment(iLight, iEntity, "weapon_bone");
+			}
+			case 'v', 'e', 'a'://bill, francis, louis
+			{//armR_T
+				EntitySetParentAttachment(iLight, iEntity, "armR_T");
+				TeleportEntity(iLight, Float:{ 8.0, 18.0, 0.0 }, Float:{ -20.0, 100.0, 0.0 }, NULL_VECTOR);
+			}
+			case 'n'://zoey
+			{
+				EntitySetParentAttachment(iLight, iEntity, "armR_T");
+				TeleportEntity(iLight, Float:{ 0.0, 20.0, 0.0 }, Float:{ 0.0, 90.0, 0.0 }, NULL_VECTOR);
+			}
+			default:
+			{
+				EntitySetParentAttachment(iLight, iEntity, "survivor_light");
+			}
+		}
+	}
 	
 	switch(iHandheld)
 	{
@@ -371,9 +396,7 @@ static CvarsChanged()
 //Tools Folding
 static bool:IsValidEntRef(iEntRef)
 {
-	static iEntity;
-	iEntity = EntRefToEntIndex(iEntRef);
-	return (iEntRef && iEntity != INVALID_ENT_REFERENCE && IsValidEntity(iEntity));
+	return (iEntRef != 0 && EntRefToEntIndex(iEntRef) != INVALID_ENT_REFERENCE);
 }
 
 static EntityGetPosition(iEntity, Float:fPos[3])
@@ -447,4 +470,3 @@ static bool:IsSurvivorUsingMountedWeapon(iClient)
 {
 	return (GetEntProp(iClient, Prop_Send, "m_usingMountedWeapon") > 0);
 }
-//}
