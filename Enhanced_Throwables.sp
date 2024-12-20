@@ -2,7 +2,7 @@
 #pragma newdecls required //強制1.7以後的新語法
 #define MAX_FRAMECHECK 10
 
-#define PLUGIN_VERSION "1.0h-2024/12/19"
+#define PLUGIN_VERSION "1.3h-2024/12/19"
 
 #include <sourcemod>
 #include <sdktools>
